@@ -33,7 +33,11 @@ body {
 
 .link {
   text-decoration: none;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .section {
   padding-top: 94px;
   padding-bottom: 94px;
@@ -95,6 +99,7 @@ body {
 .site-nav {
   display: flex;
   margin-left: 85px;
+  color: inherit;
 }
 .site-nav .item:not(:last-child) {
   margin-right: 50px;
@@ -116,7 +121,23 @@ body {
 }
 
 .site-nav .link.current {
+  position: relative;
+
   color: var(--accent-text-color);
+}
+
+.site-nav .link.current::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  content: "";
+
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+
+  background-color: var(--accent-text-color);
 }
 
 /* Стили контактов */
@@ -220,6 +241,8 @@ body {
   letter-spacing: 0.06em;
 
   background-color: VAR(--accent-text-color);
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .button:hover {
   background-color: VAR(--secondary-text-color);
@@ -279,6 +302,7 @@ body {
   display: flex;
 }
 .engage-item {
+  position: relative;
   width: calc((100% - 60px) / 3);
 }
 .engage-item:not(:last-child) {
@@ -286,6 +310,10 @@ body {
 }
 
 .app-title {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+
   margin: 0;
   padding-top: 27px;
   padding-bottom: 27px;
@@ -360,6 +388,7 @@ body {
   align-items: center;
   width: 44px;
   height: 44px;
+  border-radius: 50%;
 }
 
 .social-links:hover,
@@ -369,6 +398,8 @@ body {
 }
 .icon {
   fill: var(--icon-color);
+
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .social-links:hover .icon,
 .social-links:focus .icon {
@@ -466,6 +497,60 @@ body {
   fill: var(--primery-white-color);
 }
 
+/* стили backdrop */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 1;
+
+  background: rgba(0, 0, 0, 0.2);
+
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.4);
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  width: 528px;
+  height: 581px;
+  border-radius: 4px;
+
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background-color: var(--primery-white-color);
+}
+
 /* стили портфолио */
 
 .portfolio {
@@ -505,6 +590,9 @@ body {
   text-align: center;
   color: var(--primery-text-color);
   background: #f5f4fa;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-portfolio:hover,
 .btn-portfolio:focus {
@@ -520,6 +608,8 @@ body {
   width: calc((100% - 60px) / 3);
   margin-right: 30px;
   margin-bottom: 30px;
+
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .portfolio-card:nth-child(3n) {
   margin-right: 0;
@@ -528,7 +618,9 @@ body {
   margin-bottom: 0;
 }
 .portfolio-img {
-  height: 294px;
+  position: relative;
+  overflow: hidden;
+  /* height: 294px; */
 }
 .portfolio-img > .img {
   display: block;
@@ -563,17 +655,34 @@ body {
   line-height: 1.875;
   color: var(--secondary-text-color);
 }
+.portfolio-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(100%);
+
+  width: 100%;
+  height: 100%;
+  padding: 63px 24px;
+  background-color: var(--accent-text-color);
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .portfolio-hov {
+  margin: 0;
   font-size: 18px;
   line-height: 1.556;
   color: var(--primery-white-color);
-  background-color: var(--accent-text-color);
 }
 
 .portfolio-card:hover,
 .portfolio-card:focus {
-  /* background-color: var(--accent-text-color); */
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.portfolio-card:hover .portfolio-animation,
+.portfolio-card:focus .portfolio-animation {
+  transform: translateY(0);
 }
